@@ -10,7 +10,7 @@ export const axiosWithAuth = () => {
         headers: {
             Authorization: token,
         },
-
+            baseURL: "http://localhost:9000/api"
     });
 };
 
