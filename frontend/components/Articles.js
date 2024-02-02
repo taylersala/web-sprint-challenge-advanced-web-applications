@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import PT from 'prop-types'
-import { axiosWithAuth } from '../axios'
+import Spinner from './Spinner'
 
 export default function Articles(props) {
   if(!localStorage.getItem("token")) {
@@ -12,9 +12,10 @@ export default function Articles(props) {
     articles,
     getArticles,
     deleteArticle,
-    currentArticleId,
+    // currentArticleId,
     setCurrentArticleId,
   } = props;
+  
   const navigate = useNavigate();
 
   // ✨ implement conditional logic: if no token exists
@@ -31,9 +32,9 @@ export default function Articles(props) {
     <div className="articles">
       <h2>Articles</h2>
       {
-        ![].length
+        !articles.length
           ? 'No articles yet'
-          : [].map(art => {
+          : articles.map(art => {
             return (
               <div className="article" key={art.article_id}>
                 <div>
@@ -42,8 +43,8 @@ export default function Articles(props) {
                   <p>Topic: {art.topic}</p>
                 </div>
                 <div>
-                  <button disabled={true} onClick={Function.prototype}>Edit</button>
-                  <button disabled={true} onClick={Function.prototype}>Delete</button>
+                  <button disabled={false} onClick={() => setCurrentArticleId(art.article_id)}>Edit</button>
+                  <button disabled={false} onClick={() => deleteArticle(art.article_id)}>Delete</button>
                 </div>
               </div>
             )
@@ -53,7 +54,7 @@ export default function Articles(props) {
   )
 }
 
-//fix buttons ?
+//fix buttons ? not working 
 
 // 🔥 No touchy: Articles expects the following props exactly:
 Articles.propTypes = {

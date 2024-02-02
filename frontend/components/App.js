@@ -7,6 +7,9 @@ import ArticleForm from './ArticleForm'
 import Spinner from './Spinner'
 import { axiosWithAuth } from '../axios'
 
+// navigate relpace true option => inaccesible history
+
+
 const articlesUrl = '/articles'
 const loginUrl = '/login'
 // const baseURL = 'http://localhost:3000'
@@ -20,7 +23,7 @@ export default function App() {
 
   // ✨ Research `useNavigate` in React Router v.6
   const navigate = useNavigate()
-  const redirectToLogin = () => {navigate('')}
+  const redirectToLogin = () => {navigate('/')}
   const redirectToArticles = () => {navigate(articlesUrl)}
 
   const logout = () => {
@@ -35,11 +38,11 @@ export default function App() {
   }
 
    const login = ({ username, password }) => {
-    setMessage('');
-    axiosWithAuth().post(loginUrl, {username: username, password: password})
+    // setMessage('');
+    axiosWithAuth().post(loginUrl, {username, password})
     .then(res => {
       console.log(res)
-      setMessage(res.data.message);
+      // setMessage(res.data.message);
       localStorage.setItem('token', res.data.token)
       setSpinnerOn(false);
       redirectToArticles();
@@ -136,7 +139,7 @@ export default function App() {
   }
 
   const deleteArticle = article_id => {
-    setMessage("");
+    // setMessage("");
     setSpinnerOn(true);
     axiosWithAuth().delete(`/articles/${article_id}`)
     .then(res => {
@@ -164,7 +167,7 @@ export default function App() {
       <div id="wrapper" style={{ opacity: spinnerOn ? "0.25" : "1" }}> {/* <-- do not change this line */}
         <h1>Advanced Web Applications</h1>
         <nav>
-          <NavLink id="loginScreen" to={''}>Login</NavLink>
+          <NavLink id="loginScreen" to='/'>Login</NavLink>
           <NavLink id="articlesScreen" to={articlesUrl}>Articles</NavLink>
         </nav>
         <Routes>
