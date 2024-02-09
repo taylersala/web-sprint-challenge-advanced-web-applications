@@ -41,7 +41,7 @@ export default function ArticleForm(props) {
     }
     else {
       updateArticle({article_id: currentArticle.article_id, article: values});
-      setCurrentArticleId(null);
+      //setCurrentArticleId(null);
     }
     setValues(initialFormValues);
     // ✨ implement

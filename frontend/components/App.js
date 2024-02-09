@@ -113,12 +113,16 @@ export default function App() {
     .then(res => {
       setMessage(res.data.message);
       setSpinnerOn(false);
+      console.log(res)
 
-      for(let i=0; i < articles.length; i++) {
-        if(article_id === articles[i].article_id){
-          article[i] = { ...res.data.article }
-        }
-      }
+      setArticles(articles.map(art => article_id != art.article_id ?  art : article ))
+
+      // for(let i=0; i < articles.length; i++) {
+      //   if(article_id === articles[i].article_id){
+      //     article[i] = { ...res.data.article }
+      //   }
+      //   redirectToArticles();
+      // } 
     })
     .catch(err => {
       setSpinnerOn(false);
